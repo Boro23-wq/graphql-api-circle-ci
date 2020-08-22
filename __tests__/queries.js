@@ -5,14 +5,18 @@ const { stopDatabase } = require('../src/database');
 
 const request = supertest(app);
 
-jest.setTimeout(1000000);
+describe('tests', () => {
+  beforeEach(() => {
+    jest.setTimeout(10000);
+  });
+});
 
 afterAll(async () => {
   await stopDatabase();
 });
 
 test('fetch users', async (done) => {
-  request
+  await request
     .post('/graphql')
     .send({
       query: '{ users{ id, name} }',
