@@ -5,11 +5,11 @@ const { stopDatabase } = require('../src/database');
 
 const request = supertest(app);
 
-describe('tests', () => {
-  beforeEach(() => {
-    jest.setTimeout(10000);
-  });
-});
+// describe('tests', () => {
+//   beforeEach(() => {
+//     jest.setTimeout(10000);
+//   });
+// });
 
 afterAll(async () => {
   await stopDatabase();
