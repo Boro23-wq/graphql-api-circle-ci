@@ -11,19 +11,30 @@ afterAll(async () => {
   await stopDatabase();
 });
 
-test('fetch users', async (done) => {
-  request
+// test('fetch users', async (done) => {
+//   request
+//     .post('/graphql')
+//     .send({
+//       query: '{ users{ id, name} }',
+//     })
+//     .set('Accept', 'application/json')
+//     .expect(200)
+//     .expect('Content-Type', /json/)
+//     .end(function (err, res) {
+//       if (err) return done(err);
+//       expect(res.body).toBeInstanceOf(Object);
+//       expect(res.body.data.users.length).toEqual(3);
+//       done();
+//     });
+// });
+
+test('query that does not exist', async () => {
+  const response = await request
     .post('/graphql')
     .send({
-      query: '{ users{ id, name} }',
+      query: '{ events{ id, name} }',
     })
-    .set('Accept', 'application/json')
-    .expect(200)
-    .expect('Content-Type', /json/)
-    .end(function (err, res) {
-      if (err) return done(err);
-      expect(res.body).toBeInstanceOf(Object);
-      expect(res.body.data.users.length).toEqual(3);
-      done();
-    });
+    .set('Accept', 'application/json');
+
+  expect(response.status).toBe(400);
 });
