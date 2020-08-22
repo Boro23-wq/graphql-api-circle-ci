@@ -5,25 +5,21 @@ const { stopDatabase } = require('../src/database');
 
 const request = supertest(app);
 
-// describe('tests', () => {
-//   beforeEach(() => {
-//     jest.setTimeout(10000);
-//   });
-// });
+jest.setTimeout(10000);
 
 afterAll(async () => {
   await stopDatabase();
 });
 
 test('fetch users', async (done) => {
-  await request
+  request
     .post('/graphql')
     .send({
       query: '{ users{ id, name} }',
     })
     .set('Accept', 'application/json')
-    .expect('Content-Type', /json/)
     .expect(200)
+    .expect('Content-Type', /json/)
     .end(function (err, res) {
       if (err) return done(err);
       expect(res.body).toBeInstanceOf(Object);
