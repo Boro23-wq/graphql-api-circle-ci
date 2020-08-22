@@ -5,7 +5,7 @@ const { stopDatabase } = require('../src/database');
 
 const request = supertest(app);
 
-await jest.setTimeout(30000);
+jest.setTimeout(30000);
 
 afterAll(async () => {
   await stopDatabase();
